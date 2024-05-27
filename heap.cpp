@@ -2,7 +2,6 @@
 #include <cstdio>
 #include <cstring>
 #include <vector>
-#include <cmath>
 #include "data_structures.h"
 using namespace std;
 

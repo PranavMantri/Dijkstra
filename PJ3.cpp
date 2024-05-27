@@ -1,7 +1,5 @@
 #include <iostream>
 #include <cstdio>
-#include <string>
-#include <vector>
 #include <cmath>
 #include <cstring>
 #include "data_structures.h"
