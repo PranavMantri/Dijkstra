@@ -8,7 +8,7 @@
 #include "graph.h"
 #include "heap.h"
 using namespace std;
-
+void die(string s){ cerr<< s << endl; exit(1);}
 void makeGraph(char *filename, int is_Direct, int flag, Graph *graph_)
 {
     FILE *fp = fopen(filename, "rb"); 
@@ -128,7 +128,7 @@ void findSP(Graph *graph_, int source)
                     if(sumDist + adj_list->at(i)->w < in->key)
                     {
                         in->pi = currnode->index; 
-                        decreaseKey(h, in->position, sumDist + adj_list->at(i)->w); 
+                        decreaseKey(h, find(h->A.begin(), h->A.end(), in)- h->A.begin(), sumDist + adj_list->at(i)->w); 
                     }
                 } 
             }
