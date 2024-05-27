@@ -82,9 +82,10 @@ void insertEdge(Edge *in_edge, int is_Direct, int flag, Graph *graph_)
     }
 }
 
-void findSP(Graph *graph_, int source)
+void findSP(Graph *graph_, int source, int target)
 {
     source = source -1;
+    target = target -1; 
     if(source > graph_->vertex_list->size()|| source<0)
     {
         cout << "source DNE" << endl; return;
@@ -105,8 +106,13 @@ void findSP(Graph *graph_, int source)
     while(h->A.size() !=0)
     {
         currnode = h->A.at(0);
-        currnode->color = 2; 
+        currnode->color = 2;
         extractMin(h);
+        if(currnode->index == target)
+        {
+            stop(h); 
+            return;
+        }
         double sumDist = currnode->key; 
         auto adj_list = graph_->adj_list->at(currnode->index);
 
@@ -154,11 +160,7 @@ void findSP(Graph *graph_, int source)
             }
         }
     }
-
-  /*  for(int i =0; i< graph_->vertex_list->size(); i++)
-    {
-        cerr << i+1 << "'s prev is" << graph_->vertex_list->at(i)->pi+1 << endl;
-    }*/
+    stop(h); 
 
 }
 
@@ -221,4 +223,12 @@ void printLength(Graph *graph_, int source, int target)
         cout << "There is no path from " << source << " to " << target << "." << endl; 
     else
         printf("The length of the shortest path from %d to %d is: %8.2f\n", source, target, graph_->vertex_list->at(target-1)->key);
+}
+
+void graph_stop(Graph *graph_)
+{
+    graph_->adj_list->clear();
+    graph_->vertex_list->clear();
+    graph_->path->clear(); 
+    delete graph_;
 }
